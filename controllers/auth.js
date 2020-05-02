@@ -2,11 +2,11 @@ const User = require('../models/user');
 const middlewares = require('../middlewares/middlewares');
 const resgisterValidation = require('../helper/joi');
 const loginValidation = require('../helper/joi');
-
 const log = require('../helper/log');
 const ErrorResponse = require('../helper/errorResponse');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const Todos = require('../models/toDos');
 
 
 module.exports = {
@@ -49,6 +49,21 @@ module.exports = {
     
         //generate a token
         sendTokenResponse(user, totalUser, 200, res)
+    }),
+    profile: middlewares.handleAsync(async (req, res, next)=>{
+        const user = await User.find(req.user);
+        if(!user){return next(new ErrorResponse('user does not exist', 404))}
+        if(user[0]._id != req.user.id){
+            return next(new ErrorResponse('NOT AUTHRIZE', 401));
+        }
+        //==find the current user todos====
+        const userTodos = await Todos.find().find({user: req.user.id});
+        res.status(200).json({
+            success: true,
+            user,
+            userTodos
+        });
+
     })
 }
 

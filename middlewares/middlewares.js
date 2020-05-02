@@ -37,7 +37,12 @@ module.exports = {
             message = `there's a user with the email of '${req.body.email}' already`;
             error = new ErrorResponse(message, 400);
         }
+        
+        /*//handle type error
+        if(err.name === 'TypeError'){
 
+        }
+        */
         
 //send response 
         res.status(
