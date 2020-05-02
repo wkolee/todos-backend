@@ -6,10 +6,13 @@ TO START APPLICATION
 open up project,
 
 
-CREATE A .env file in config and create db, and jwt secret variable (example - JWT_SECERT = SECERT)
+CREATE A .env file in config and create db strig connection, and jwt secret variable (example - JWT_SECERT = SECERT)
 
 
-IN TERMINAL - npm install,
+IN TERMINAL - cd to project folder
+
+
+(ONCE IN PROJECT FOLDER) IN TERMINAL - npm install,
 
 
 IN TERMINAL - node server.js
