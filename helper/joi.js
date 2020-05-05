@@ -14,7 +14,7 @@ const registerValidation = (data)=>{
         password: Joi.string()
         .min(6)
         .max(30)
-        .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
+        .required(),
     });
     return schema.validate(data);
 

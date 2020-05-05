@@ -7,10 +7,11 @@ const ErrorResponse = require('../helper/errorResponse');
 module.exports = {
     //todos
     getTodos: middlewares.handleAsync(async (req, res, next) => {
-        if(req.user || req.user.role === 'admin'){
-            const todos = await Todos.find().find({user: req.user.id});
-        }
-            const todos = await Todos.find({user: req.user.id});
+        const todos = await Todos.find({user: req.user});
+        //if no todos return error
+        if(!todos){return next(new ErrorResponse('todos does not exist', 404))}
+        //if not admin & user don't own todos return error
+        if(!req.user && req.user.role != 'admin'){return next(new ErrorResponse('not authorize', 401));}
             const total = todos.length;
             let page = req.query.page;
             let limit = req.query.limit;
@@ -30,14 +31,14 @@ module.exports = {
                 todos: sortTodos
             });
             }else{  
-            //get all data    
-            res.status(200).json({
-            success: true,
-            total,
-            todos
-        });
-    }
-
+                //get all data    
+                res.status(200).json({
+                success: true,
+                total,
+                todos
+                });
+    
+            }    
 }),
     //get single todos 
     singleTodos: middlewares.handleAsync(async (req, res, next)=>{

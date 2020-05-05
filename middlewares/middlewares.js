@@ -15,7 +15,7 @@ module.exports = {
     handleError: function(err, req, res, next){
         let error = { ...err };
         error.message = err.message;
-        //log(err)
+        log(err)
      
 
         //check for cast error
