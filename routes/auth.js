@@ -5,6 +5,8 @@ const auth = require('../middlewares/auth');
 router.post('/register', getUser.register);
 //login users
 router.post('/login', getUser.login);
+router.get('/logout', getUser.logout);
+
 
 //reset user password
 router.post('/forgotpassword', getUser.forgotPassword);

@@ -11,6 +11,8 @@ module.exports = {
         if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')){
             //split token string and store in token varible
             token = req.headers.authorization.split(' ')[1];
+        }else if(req.cookies.token){
+                token = req.cookies.token;
         }
         //check for token
         if(!token){   
